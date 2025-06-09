@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Terra</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Eco Terra" class="logo" />
+      <div class="company-name">
+        <span>Eco</span>
+        <span>Terra</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="carousel-wrapper">
+    <div class="carousel-track">
+      <!-- Repita as imagens para o loop visual funcionar -->
+      <img src="c:\Users\steph\Downloads\plantas-ap-ciclovivo1-768x1024.webp" alt="Foto 1" />
+      <img src="c:\Users\steph\Downloads\tropical-plants-pictures-eisj7yjmbv0zt495.jpg" alt="Foto 2" />
+      <img src="c:\Users\steph\Downloads\mini_eco-veneza4.jpg" alt="Foto 3" />
+      <img src="c:\Users\steph\Downloads\pngtree-d-illustration-of-a-recycle-symbol-on-a-wooden-desk-with-image_3862664.jpg" alt="Foto 4" />
+      <img src="c:\Users\steph\Downloads\plantas-ap-ciclovivo1-768x1024.webp" alt="Foto 1" />
+      <img src="c:\Users\steph\Downloads\tropical-plants-pictures-eisj7yjmbv0zt495.jpg" alt="Foto 2" />
+      <img src="c:\Users\steph\Downloads\mini_eco-veneza4.jpg" alt="Foto 3" />
+      <img src="c:\Users\steph\Downloads\pngtree-d-illustration-of-a-recycle-symbol-on-a-wooden-desk-with-image_3862664.jpg" alt="Foto 4" />
+    </div>
+  </section>
+
+  <main>
+    <h1>Bem-vindo ao nosso site!</h1>
+    <p>Sua atitude vale pontos! Nosso planeta agradece. 🍀</p>
+
+    <section class="quadrants-container">
+
+      <!-- Questionário -->
+      <div class="quadrant" id="questionnaire-quadrant" tabindex="0">
+        <img src="questionnaire.jpg" alt="Questionário" />
+        <button id="open-questionnaire">Abrir Questionário</button>
+      </div>
+
+      <!-- Joguinho de Reciclagem -->
+      <div class="quadrant" id="game-quadrant" tabindex="0">
+        <img src="recycle-game.jpg" alt="Jogo Reciclagem" />
+        <div id="game-container">
+          <p>Arraste os itens para a lixeira correta!</p>
+          <div id="game-items"></div>
+          <div id="bins">
+            <div class="bin" data-type="plastic">Plástico</div>
+            <div class="bin" data-type="paper">Papel</div>
+            <div class="bin" data-type="metal">Metal</div>
+          </div>
+          <p id="score">Pontos: 0</p>
+        </div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="quadrant" id="feedback-quadrant" tabindex="0">
+        <img src="feedback.jpg" alt="Feedback" />
+        <form id="feedback-form">
+          <h3>Deixe seu feedback</h3>
+          <textarea placeholder="Seu comentário..." required></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+
+      <!-- Informações -->
+      <div class="quadrant" id="info-quadrant" tabindex="0">
+        <img src="info.jpg" alt="Informações" />
+        <div class="info-content">
+          <h3>Sobre a empresa</h3>
+          <p>A Eco Terra é uma empresa dedicada à sustentabilidade ambiental, promovendo a reciclagem e o cuidado com o planeta.</p>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Eco Terra. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Questionário - abre link ao clicar no botão
+    document.getElementById('open-questionnaire').addEventListener('click', () => {
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSepYRaoTBD9UHMnZ5gLrmgkCjBwh2_kbV9ls4IrhEz22ydypA/viewform', '_blank');
+    });
+
+    // Jogo reciclagem
+    const itemsData = [
+      { id: 1, type: 'plastic', name: 'Garrafa Plástica' },
+      { id: 2, type: 'paper', name: 'Jornal' },
+      { id: 3, type: 'metal', name: 'Lata de Alumínio' },
+      { id: 4, type: 'plastic', name: 'Saco Plástico' },
+      { id: 5, type: 'paper', name: 'Caixa de Papelão' },
+      { id: 6, type: 'metal', name: 'Tampinha de Metal' }
+    ];
+    let score = 0;
+
+    const gameItemsContainer = document.getElementById('game-items');
+    const scoreDisplay = document.getElementById('score');
+
+    // Cria os itens do jogo
+    function createGameItems() {
+      gameItemsContainer.innerHTML = '';
+      itemsData.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('game-item');
+        div.textContent = item.name;
+        div.draggable = true;
+        div.dataset.type = item.type;
+
+        // Eventos de drag
+        div.addEventListener('dragstart', dragStart);
+        div.addEventListener('dragend', dragEnd);
+
+        gameItemsContainer.appendChild(div);
+      });
+    }
+
+    // Drag & Drop
+    let draggedItem = null;
+
+    function dragStart(e) {
+      draggedItem = e.target;
+      e.target.classList.add('dragging');
+    }
+
+    function dragEnd(e) {
+      e.target.classList.remove('dragging');
+      draggedItem = null;
+    }
+
+    const bins = document.querySelectorAll('.bin');
+    bins.forEach(bin => {
+      bin.addEventListener('dragover', e => {
+        e.preventDefault();
+        bin.classList.add('over');
+      });
+      bin.addEventListener('dragleave', () => {
+        bin.classList.remove('over');
+      });
+      bin.addEventListener('drop', e => {
+        e.preventDefault();
+        bin.classList.remove('over');
+        if (draggedItem) {
+          const itemType = draggedItem.dataset.type;
+          const binType = bin.dataset.type;
+          if (itemType === binType) {
+            score++;
+            scoreDisplay.textContent = 'Pontos: ' + score;
+            draggedItem.remove();
+            createConfetti();
+          } else {
+            alert('Lixeira errada! Tente novamente.');
+          }
+        }
+      });
+    });
+
+    createGameItems();
+
+    // Confete
+    function createConfetti() {
+      const colors = ['#f94144', '#f3722c', '#f9c74f', '#90be6d', '#577590'];
+      const confettiCount = 30;
+
+      for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
+        confetti.style.animationDelay = (Math.random() * 2) + 's';
+        confetti.style.width = confetti.style.height = (8 + Math.random() * 8) + 'px';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        document.body.appendChild(confetti);
+
+        // Remove confete após animação
+        confetti.addEventListener('animationend', () => {
+          confetti.remove();
+        });
+      }
+    }
+
+    // Feedback form
+    document.getElementById('feedback-form').addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Obrigado pelo seu feedback!');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

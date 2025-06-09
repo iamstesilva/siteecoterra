@@ -1,0 +1,294 @@
+/* style.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eaf5e3;
+  color: #1b3d1b;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #556b2f;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.company-name {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.carousel-wrapper {
+  width: 100%;
+  overflow: hidden;
+  background-color: #dfeeda;
+  padding: 20px 0;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: slideCarousel 25s linear infinite;
+}
+
+.carousel-track img {
+  width: 200px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+@keyframes slideCarousel {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+main {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+main h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+main p {
+  font-size: 1.2rem;
+  color: #2e4d2e;
+  margin-bottom: 40px;
+}
+
+.quadrants-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 0 20px 40px;
+}
+
+.quadrant {
+  background-color: #d4e7c0;
+  border-radius: 18px;
+  width: 320px;
+  min-height: 350px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.quadrant:focus,
+.quadrant:hover {
+  transform: scale(1.07);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  outline: none;
+}
+
+.quadrant img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 18px 18px 0 0;
+  margin-bottom: 12px;
+  user-select: none;
+}
+
+.quadrant button {
+  margin-top: auto;
+  background-color: #556b2f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.quadrant button:hover {
+  background-color: #40521b;
+}
+
+#game-container {
+  width: 100%;
+}
+
+#game-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.game-item {
+  background-color: #7bc86f;
+  padding: 10px;
+  border-radius: 10px;
+  width: 140px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  user-select: none;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+.game-item.dragging {
+  opacity: 0.6;
+  cursor: grabbing;
+  transform: scale(1.1);
+}
+
+#bins {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.bin {
+  background-color: #40521b;
+  color: white;
+  padding: 15px;
+  width: 90px;
+  border-radius: 14px;
+  user-select: none;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s ease;
+}
+
+.bin.over {
+  background-color: #7bc86f;
+  color: #1b3d1b;
+}
+
+#score {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #2e4d2e;
+}
+
+/* Feedback form */
+#feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+#feedback-form h3 {
+  margin-bottom: 10px;
+  color: #40521b;
+}
+
+#feedback-form textarea {
+  resize: none;
+  min-height: 100px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid #556b2f;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+#feedback-form button {
+  align-self: flex-end;
+  background-color: #556b2f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+#feedback-form button:hover {
+  background-color: #40521b;
+}
+
+/* Informações */
+.info-content {
+  text-align: left;
+  color: #2e4d2e;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
+/* Confetes */
+@keyframes fallRotateConfetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  opacity: 0.9;
+  top: 0;
+  animation-name: fallRotateConfetti;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Footer */
+footer {
+  background-color: #556b2f;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: auto;
+  font-size: 0.9rem;
+  user-select: none;
+}
