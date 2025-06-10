@@ -19,7 +19,6 @@
 
   <section class="carousel-wrapper">
     <div class="carousel-track">
-      <!-- Repita as imagens para o loop visual funcionar -->
       <img src="c:\Users\steph\Downloads\plantas-ap-ciclovivo1-768x1024.webp" alt="Foto 1" />
       <img src="c:\Users\steph\Downloads\tropical-plants-pictures-eisj7yjmbv0zt495.jpg" alt="Foto 2" />
       <img src="c:\Users\steph\Downloads\mini_eco-veneza4.jpg" alt="Foto 3" />
@@ -77,6 +76,22 @@
         </div>
       </div>
 
+      <!-- Ecopontos -->
+      <div class="quadrant" id="ecopoints-quadrant" tabindex="0">
+        <img src="ecoponto.jpg" alt="Ecopontos" />
+        <div class="ecopoints-content">
+          <h3>Endereços de Ecopontos</h3>
+          <button id="toggle-ecopoints">Visualizar Endereços</button>
+          <ul id="ecopoints-list" style="display: none;">
+            <li>Rua Verdejante, 123 - Bairro Sustentável</li>
+            <li>Avenida das Árvores, 456 - Centro</li>
+            <li>Praça do Recicla, 789 - Zona Leste</li>
+            <li>Travessa Limpa, 101 - Zona Norte</li>
+            <li>Alameda Ambiental, 202 - Zona Sul</li>
+          </ul>
+        </div>
+      </div>
+
     </section>
   </main>
 
@@ -104,7 +119,6 @@
     const gameItemsContainer = document.getElementById('game-items');
     const scoreDisplay = document.getElementById('score');
 
-    // Cria os itens do jogo
     function createGameItems() {
       gameItemsContainer.innerHTML = '';
       itemsData.forEach(item => {
@@ -114,7 +128,6 @@
         div.draggable = true;
         div.dataset.type = item.type;
 
-        // Eventos de drag
         div.addEventListener('dragstart', dragStart);
         div.addEventListener('dragend', dragEnd);
 
@@ -122,7 +135,6 @@
       });
     }
 
-    // Drag & Drop
     let draggedItem = null;
 
     function dragStart(e) {
@@ -180,7 +192,6 @@
         confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
         document.body.appendChild(confetti);
 
-        // Remove confete após animação
         confetti.addEventListener('animationend', () => {
           confetti.remove();
         });
@@ -192,6 +203,16 @@
       e.preventDefault();
       alert('Obrigado pelo seu feedback!');
       e.target.reset();
+    });
+
+    // Mostrar/ocultar ecopontos
+    document.getElementById('toggle-ecopoints').addEventListener('click', () => {
+      const list = document.getElementById('ecopoints-list');
+      const isVisible = list.style.display === 'block';
+      list.style.display = isVisible ? 'none' : 'block';
+      document.getElementById('toggle-ecopoints').textContent = isVisible
+        ? 'Visualizar Endereços'
+        : 'Ocultar Endereços';
     });
   </script>
 </body>
